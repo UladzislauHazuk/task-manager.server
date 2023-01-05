@@ -12,6 +12,10 @@ const {
 const {
     handleError
 } = require('../helper/handleError');
+const {
+    isValidUserId,
+    isValidUser
+} = require('../helper/validation');
 
 const route = express.Router();
 
@@ -24,7 +28,7 @@ route.get('/', async (req, res) => {
     }
 });
 
-route.get('/:id', async (req, res) => {
+route.get('/:id', isValidUserId, async (req, res) => {
     try {
         const {
             id
@@ -36,7 +40,7 @@ route.get('/:id', async (req, res) => {
     }
 });
 
-route.put('/:id', async (req, res) => {
+route.put('/:id', isValidUserId, isValidUser, async (req, res) => {
     try {
         const {
             id
@@ -55,7 +59,7 @@ route.put('/:id', async (req, res) => {
     }
 });
 
-route.delete('/:id', async (req, res) => {
+route.delete('/:id', isValidUserId, async (req, res) => {
     try {
         const {
             id
@@ -67,7 +71,7 @@ route.delete('/:id', async (req, res) => {
     }
 });
 
-route.patch('/:id', async (req, res) => {
+route.patch('/:id', isValidUserId, async (req, res) => {
     try {
         const {
             id
