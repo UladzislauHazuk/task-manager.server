@@ -56,7 +56,7 @@ const patchUsersDB = async (id, dataFromClient) => {
             ...data,
             ...dataFromClient
         };
-        const sql2 = 'UPDATE users SET name=$1, surname=$2, pwd=$3, email=$4, status=$5 WHERE id=$6 RETURNING *';
+        const sql2 = 'UPDATE users SET name=$1, surname=$2, email=$3, pwd=$4, status=$5 WHERE id=$6 RETURNING *';
         const data2 = (await client.query(sql2, [merged.name, merged.surname, merged.email, merged.pwd, merged.status, id])).rows;
         await client.query('COMMIT');
         return data2;
