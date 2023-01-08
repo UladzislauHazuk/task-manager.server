@@ -1,4 +1,5 @@
 const express = require('express');
+
 const {
     createUser, 
     doAuthorization
@@ -9,6 +10,7 @@ const {
 const {
     handleError
 } = require('../helper/handleError');
+
 const route = express.Router();
 
 route.post('/reg', async (req, res) => {

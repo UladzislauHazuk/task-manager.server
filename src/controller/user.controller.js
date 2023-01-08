@@ -1,4 +1,5 @@
 const express = require('express');
+
 const {
     getUsers,
     getUsersById,
@@ -75,11 +76,11 @@ route.patch('/:id', isValidUserId, async (req, res) => {
     try {
         const {
             id
-        } = req.params
-        const user = await patchUsers(id, req.body)
+        } = req.params;
+        const user = await patchUsers(id, req.body);
         buildResponse(res, 200, user);
     } catch (error) {
-        handleError(res, 404, error.message)
+        handleError(res, 404, error.message);
     }
 });
 

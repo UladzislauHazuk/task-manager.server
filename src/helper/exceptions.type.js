@@ -59,7 +59,8 @@ const ExceptionType = {
         id: 15,
         message: 'patchTask: this task is not defind.'
     }
-}
+}; 
+
 module.exports = {
     ExceptionType
-}
+};

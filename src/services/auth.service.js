@@ -1,23 +1,27 @@
+const bcrypt = require('bcrypt');
+
 const {
     getUserByEmailDB,
     createUserDB,
     checkUserByPwdDB
 } = require('../repository/auth.repository');
 
-async function createUser(name, surname, email, pwd) {
+const createUser = async (name, surname, email, pwd) => {
     const foundUser = await getUserByEmailDB(email);
     if (foundUser.length) throw new Error('Есть такой');
 
-    await createUserDB(name, surname, email, pwd);
-}
+    const salt = await bcrypt.genSaltSync(10);
+    const hashPwd = await bcrypt.hashSync(pwd, salt);
+    await createUserDB(name, surname, email, hashPwd);
+};
 
-async function doAuthorization(email, pwd) {
+const doAuthorization = async (email, pwd) => {
     const foundUser = await getUserByEmailDB(email);
     if (!foundUser.length) throw new Error('Нет такого email');
 
-    const user = await checkUserByPwdDB(pwd);
-    if(!user.length) throw new Error('Пароль не совпадает');
-}
+    const userPwd = await checkUserByPwdDB(pwd, email);
+    if(!userPwd) throw new Error('Пароль не совпадает');
+};
 
 module.exports = {
     createUser,

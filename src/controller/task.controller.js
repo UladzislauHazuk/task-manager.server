@@ -1,4 +1,5 @@
 const express = require('express');
+
 const {
     getTasks,
     getTaskById,
@@ -13,6 +14,7 @@ const {
 const {
     handleError
 } = require('../helper/handleError');
+
 const route = express.Router();
 
 route.get('/', async (req, res) => {
@@ -85,7 +87,7 @@ route.patch('/:id', async (req, res) => {
         const dataTask = await patchTask(id, req.body);
         buildResponse(res, 200, dataTask);
     } catch (error) {
-        handleError(res, 404, error.message)
+        handleError(res, 404, error.message);
     }
 });
 

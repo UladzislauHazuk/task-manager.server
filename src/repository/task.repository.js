@@ -2,21 +2,21 @@ const {
     pool
 } = require('../DB');
 
-async function getTasksDB() {
+const getTasksDB = async () => {
     const client = await pool.connect();
     const sql = 'SELECT * FROM tasks';
     const data = (await client.query(sql)).rows;
     return data;
-}
+};
 
-async function getTaskByIdDB(id) {
+const getTaskByIdDB = async (id) => {
     const client = await pool.connect();
     const sql = 'SELECT * FROM tasks WHERE id = $1';
     const data = (await client.query(sql, [id])).rows;
     return data;
-}
+};
 
-async function createTaskDB(task, user_id) {
+const createTaskDB = async (task, user_id) => {
     const client = await pool.connect();
     try {
         await client.query('BEGIN');
@@ -29,9 +29,9 @@ async function createTaskDB(task, user_id) {
         console.log(error.message);
         return [];
     }
-}
+};
 
-async function updateTaskDB(id, task, user_id) {
+const updateTaskDB = async (id, task, user_id) => {
     const client = await pool.connect();
     try {
         await client.query('BEGIN');
@@ -46,7 +46,7 @@ async function updateTaskDB(id, task, user_id) {
     }
 }
 
-async function deleteTaskDB(id) {
+const deleteTaskDB = async (id) => {
     const client = await pool.connect();
     try {
         await client.query('BEGIN');
@@ -61,26 +61,26 @@ async function deleteTaskDB(id) {
     }
 }
 
-async function patchTaskDB(id, dataClient) {
-    const client = await pool.connect()
+const patchTaskDB = async (id, dataClient) => {
+    const client = await pool.connect();
     try {
-        await client.query('BEGIN')
-        const sql = `SELECT * FROM tasks WHERE id=$1`
-        const data = (await client.query(sql, [id])).rows[0]
+        await client.query('BEGIN');
+        const sql = `SELECT * FROM tasks WHERE id=$1`;
+        const data = (await client.query(sql, [id])).rows[0];
         const merged = {
             ...data,
             ...dataClient
-        }
+        };
         const sql2 = 'UPDATE tasks SET task=$1, user_id=$2 WHERE id=$3 RETURNING *';
         const data2 = (await client.query(sql2, [merged.task, merged.user_id, id])).rows;
-        await client.query('COMMIT')
-        return data2
+        await client.query('COMMIT');
+        return data2;
     } catch (error) {
-        await client.query('ROLLBACK')
-        console.log(error.message)
-        return []
+        await client.query('ROLLBACK');
+        console.log(error.message);
+        return [];
     }
-}
+};
 
 module.exports = {
     getTasksDB,
