@@ -1,20 +1,21 @@
-const { pool } = require('../DB');
+import { pool } from '../DB';
+import { iUser } from '../interfaces/interfaces';
 
-const getUsersDB = async () => {
+const getUsersDB = async (): Promise<iUser[]> => {
   const client = await pool.connect();
   const sql = 'SELECT * FROM users';
   const data = (await client.query(sql)).rows;
   return data;
 };
 
-const getUsersByIdDB = async id => {
+const getUsersByIdDB = async (id: number): Promise<iUser[]> => {
   const client = await pool.connect();
   const sql = 'SELECT * FROM users WHERE id = $1';
   const data = (await client.query(sql, [id])).rows;
   return data;
 };
 
-const updateUsersDB = async (id, name, surname, pwd, email, status) => {
+const updateUsersDB = async (id: number, name: string, surname: string, pwd: string, email: string, status: number): Promise<iUser[]> => {
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
@@ -24,12 +25,12 @@ const updateUsersDB = async (id, name, surname, pwd, email, status) => {
     return data;
   } catch (error) {
     await client.query('ROLLBACK');
-    console.log(error.message);
+    console.log(error);
     return [];
   }
 };
 
-const deleteUserDB = async id => {
+const deleteUserDB = async (id: number): Promise<iUser[]> => {
   const client = await pool.connect();
   try {
     client.query('BEGIN');
@@ -39,12 +40,12 @@ const deleteUserDB = async id => {
     return data;
   } catch (error) {
     client.query('ROLLBACK');
-    console.log(error.message);
+    console.log(error);
     return [];
   }
 };
 
-const patchUsersDB = async (id, dataFromClient) => {
+const patchUsersDB = async (id: number, dataFromClient: iUser): Promise<iUser[]> => {
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
@@ -60,15 +61,9 @@ const patchUsersDB = async (id, dataFromClient) => {
     return data2;
   } catch (error) {
     await client.query('ROLLBACK');
-    console.log(error.message);
+    console.log(error);
     return [];
   }
 };
 
-module.exports = {
-  getUsersDB,
-  getUsersByIdDB,
-  updateUsersDB,
-  deleteUserDB,
-  patchUsersDB,
-};
+export { getUsersDB, getUsersByIdDB, updateUsersDB, deleteUserDB, patchUsersDB };

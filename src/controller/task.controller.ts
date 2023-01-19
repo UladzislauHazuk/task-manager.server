@@ -1,69 +1,68 @@
-const express = require('express');
-
-const { getTasks, getTaskById, createTask, updateTask, deleteTask, patchTask } = require('../services/task.service');
-const { buildResponse } = require('../helper/buildResponse');
-const { handleError } = require('../helper/handleError');
+import express, { Request, Response } from 'express';
+import { getTasks, getTaskById, createTask, updateTask, deleteTask, patchTask } from '../services/task.service';
+import { buildResponse } from '../helper/buildResponse';
+import { handleError } from '../helper/handleError';
 
 const route = express.Router();
 
-route.get('/', async (req, res) => {
+route.get('/', async (req: Request, res: Response) => {
   try {
     const dataTask = await getTasks();
     buildResponse(res, 200, dataTask);
   } catch (error) {
-    handleError(res, 404, error.message);
+    handleError(res, 404, error);
   }
 });
 
-route.get('/:id', async (req, res) => {
+route.get('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const dataTask = await getTaskById(id);
     buildResponse(res, 200, dataTask);
   } catch (error) {
-    handleError(res, 404, error.message);
+    handleError(res, 404, error);
   }
 });
 
-route.post('/', async (req, res) => {
+route.post('/', async (req: Request, res: Response) => {
   try {
     const { task, user_id } = req.body;
     const dataTask = await createTask(task, user_id);
     buildResponse(res, 200, dataTask);
   } catch (error) {
-    handleError(res, 404, error.message);
+    handleError(res, 404, error);
   }
 });
 
-route.put('/:id', async (req, res) => {
+route.put('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { task, user_id } = req.body;
     const dataTask = await updateTask(id, task, user_id);
     buildResponse(res, 200, dataTask);
   } catch (error) {
-    handleError(res, 404, error.message);
+    handleError(res, 404, error);
   }
 });
 
-route.delete('/:id', async (req, res) => {
+route.delete('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const dataTask = await deleteTask(id);
     buildResponse(res, 200, dataTask);
   } catch (error) {
-    handleError(res, 404, error.message);
+    handleError(res, 404, error);
   }
 });
 
-route.patch('/:id', async (req, res) => {
+route.patch('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const dataTask = await patchTask(id, req.body);
     buildResponse(res, 200, dataTask);
   } catch (error) {
-    handleError(res, 404, error.message);
+    handleError(res, 404, error);
   }
 });
 
-module.exports = route;
+export default route;
