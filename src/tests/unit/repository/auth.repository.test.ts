@@ -1,4 +1,4 @@
-import { getUserByEmailDB, createUserDB } from '../../repository/auth.repository';
+import { getUserByEmailDB, createUserDB } from '../../../repository/auth.repository';
 
 const mClient = {
   query: jest.fn(),

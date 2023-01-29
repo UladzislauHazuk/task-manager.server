@@ -1,6 +1,6 @@
-import { isValidUserId, isValidUser, isValidEmail } from '../../helper/validation';
+import { isValidUserId, isValidUser, isValidEmail } from '../../../helper/validation';
 import { Request, Response, NextFunction } from 'express';
-import { ExceptionType } from '../../helper/exceptions.type';
+import { ExceptionType } from '../../../helper/exceptions.type';
 
 describe('isValidUserId function', () => {
   test('should return success', () => {

@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
-import { createUser, doAuthorization } from '../../services/auth.service';
-import * as repository from '../../repository/auth.repository';
-import { ExceptionType } from '../../helper/exceptions.type';
+import { createUser, doAuthorization } from '../../../services/auth.service';
+import * as repository from '../../../repository/auth.repository';
+import { ExceptionType } from '../../../helper/exceptions.type';
 
 describe('createUser function', () => {
   test('should return succes', async () => {

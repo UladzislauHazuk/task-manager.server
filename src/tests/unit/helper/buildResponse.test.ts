@@ -1,4 +1,4 @@
-import { buildResponse } from '../../helper/buildResponse';
+import { buildResponse } from '../../../helper/buildResponse';
 import { Response } from 'express';
 
 describe('buildResponse function', () => {

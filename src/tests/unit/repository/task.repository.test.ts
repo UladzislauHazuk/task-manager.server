@@ -1,4 +1,4 @@
-import { getTasksDB, getTaskByIdDB, createTaskDB, updateTaskDB, deleteTaskDB, patchTaskDB } from '../../repository/task.repository';
+import { getTasksDB, getTaskByIdDB, createTaskDB, updateTaskDB, deleteTaskDB, patchTaskDB } from '../../../repository/task.repository';
 
 const mClient = {
   query: jest.fn(),

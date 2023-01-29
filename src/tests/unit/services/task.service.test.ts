@@ -1,6 +1,6 @@
-import { getTasks, createTask, getTaskById, updateTask, deleteTask, patchTask } from '../../services/task.service';
-import * as repository from '../../repository/task.repository';
-import { ExceptionType } from '../../helper/exceptions.type';
+import { getTasks, createTask, getTaskById, updateTask, deleteTask, patchTask } from '../../../services/task.service';
+import * as repository from '../../../repository/task.repository';
+import { ExceptionType } from '../../../helper/exceptions.type';
 
 describe('getTasks function', () => {
   test('should return succes', async () => {

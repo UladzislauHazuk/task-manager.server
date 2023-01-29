@@ -1,4 +1,4 @@
-import { getUsersDB, getUsersByIdDB, updateUsersDB, deleteUserDB, patchUsersDB } from '../../repository/user.repository';
+import { getUsersDB, getUsersByIdDB, updateUsersDB, deleteUserDB, patchUsersDB } from '../../../repository/user.repository';
 
 const mClient = {
   query: jest.fn(),

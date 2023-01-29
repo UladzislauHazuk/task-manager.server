@@ -1,6 +1,6 @@
-import { getUsers, getUsersById, updateUsers, deleteUser, patchUsers } from '../../services/user.service';
-import * as repository from '../../repository/user.repository';
-import { ExceptionType } from '../../helper/exceptions.type';
+import { getUsers, getUsersById, updateUsers, deleteUser, patchUsers } from '../../../services/user.service';
+import * as repository from '../../../repository/user.repository';
+import { ExceptionType } from '../../../helper/exceptions.type';
 
 describe('getUsers function', () => {
   test('should return succes', async () => {
